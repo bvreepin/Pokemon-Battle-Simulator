@@ -24,8 +24,8 @@ poke_list = []
 for i in range(amount_of_pokemon):
     is_valid = False
     while(not is_valid):
-        name = input(f"What is the name of Pokémon {i+1}?\n")
-        move_list = ["thunderbolt"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
+        name = input(f"\nWhat is the name of Pokémon {i+1}?\n")
+        move_list = ["thunderbolt", "thunder"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
         try:
             poke_list.append(pk.Pokemon(name, move_list))
             is_valid = True
@@ -42,7 +42,7 @@ for i in range(amount_of_pokemon):
     is_valid = False
     while(not is_valid):
         name = "infernape" #input(f"What is the name of opponent Pokémon {i+1}?\n")
-        move_list = ["fire-blast"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
+        move_list = ["fire-blast", "flamethrower"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
         try:
             poke_list.append(pk.Pokemon(name, move_list))
             is_valid = True
@@ -55,7 +55,7 @@ battle = bt.Battle(trainer1, trainer2)
 battle.start()
 
 while(not battle.is_finished()):
-    print(f"{trainer1.name}:")
+    print(f"\n{trainer1.name}:")
     valid_action = False
     while valid_action == False:
         action_trainer1 = input("Enter \"S\" if you want to switch, enter anything else if you want to attack\n")
@@ -64,7 +64,9 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
-                print(f"Choose {trainer1.current_poke.name}'s attack")
+                current_poke = trainer1.current_poke
+                print(f"\nChoose {current_poke.name}'s attack:")
+                print(f"HP: {current_poke.cur_hp}/{current_poke.max_hp}\n")
                 amount_of_moves = len(trainer1.current_poke.moves)
                 for i in range(amount_of_moves):
                     move = trainer1.current_poke.moves[i]
@@ -77,7 +79,7 @@ while(not battle.is_finished()):
                     is_valid = True
         valid_action = trainer1.is_valid_action(action_trainer1)
         if valid_action == False:
-            print("The chosen action is invalid due to not being able to switch to a fainted Pokémon or the chosen move not having any PP left")
+            print("\nThe chosen action is invalid due to not being able to switch to a fainted Pokémon or the chosen move not having any PP left")
                 
     print(f"{trainer2.name}:")
     valid_action = False
@@ -88,7 +90,9 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
-                print(f"Choose {trainer2.current_poke.name}'s attack")
+                current_poke = trainer2.current_poke
+                print(f"\nChoose {current_poke.name}'s attack")
+                print(f"HP: {current_poke.cur_hp}/{current_poke.max_hp}\n")
                 amount_of_moves = len(trainer2.current_poke.moves)
                 for i in range(amount_of_moves):
                     move = trainer2.current_poke.moves[i]
@@ -101,9 +105,9 @@ while(not battle.is_finished()):
                     is_valid = True
         valid_action = trainer2.is_valid_action(action_trainer2)
         if valid_action == False:
-            print("The chosen action is invalid due to not being able to switch to a fainted Pokémon or the chosen move not having any PP left")
+            print("\nThe chosen action is invalid due to not being able to switch to a fainted Pokémon or the chosen move not having any PP left")
                 
     battle.turn(action_trainer1, action_trainer2)
-    print(battle.get_all_text())
+    print(battle.get_cur_text())
 
 print(f'Trainer {battle.get_winner().name} won this battle!')
