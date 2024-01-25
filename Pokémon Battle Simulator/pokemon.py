@@ -1,16 +1,10 @@
 from __future__ import annotations
-from random import randrange
-from queue import Queue
 
 from poke_data import PokeData
 from move import Move
 
 import battle as bt
-
-import process_move as pm
-
 import global_settings as gs
-import global_data as gd
 
 
 class Pokemon:
@@ -145,17 +139,10 @@ class Pokemon:
                 * nature_stat_changes[s]
             )
         self.stats_actual = [int(stat) for stat in stats_actual]
-    
-    # def reset_stats(self):
-    #     self.moves = self.o_moves
-    #     self.old_pp = [move.cur_pp for move in self.moves]
-    #     self.next_moves = Queue()
-    #     self.types = (self.stats_base[gs.TYPE1], self.stats_base[gs.TYPE2])
         
     def start_battle(self, battle: bt.Battle):
         self.cur_battle = battle
         self.in_battle = True
-        # self.reset_stats()
         self.enemy = (
             self.cur_battle.t2
             if self.cur_battle.t1 is self.trainer
@@ -183,20 +170,14 @@ class Pokemon:
             return
         self.cur_hp = 0
         self.is_alive = False
-        # self.reset_stats()
         self.cur_battle._faint_check()
 
     def get_move_data(self, move_name: str) -> Move:
-        # if self.copied and move_name == self.copied.name:
-        #     return self.copied
         for move in self.moves:
             if move.name == move_name:
                 return move
             
     def is_move(self, move_name: str) -> bool:
-        # if self.copied and self.copied.cur_pp:
-        #     if move_name == self.copied.name:
-        #         return True
         av_moves = self.get_available_moves()
         for move in av_moves:
             if move.name == move_name:
@@ -204,27 +185,13 @@ class Pokemon:
         return False
 
     def get_available_moves(self) -> list | None:
-        # if not self.next_moves.empty():
-        #     return
         av_moves = [move for move in self.moves if move.cur_pp]
         return av_moves
 
     def battle_end_reset(self):
-        # self.reset_stats()
         self.in_battle = False
         self.cur_battle = None
         self.enemy = None
-
-    # def switch_out(self):
-    #    self.reset_stats()
-
-#     def update_last_moves(self):
-#         if self.last_move_next:
-#             self.last_move = self.last_move_next
-#             self.last_move = None
-#         if self.last_successful_move_next:
-#             self.last_successful_move = self.last_successful_move_next
-#             self.last_successful_move_next = None
 
     def no_pp(self) -> bool:
         return all(

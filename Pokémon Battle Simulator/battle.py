@@ -4,7 +4,6 @@ from random import randrange
 from move import Move
 from poke_data import PokeData
 
-import pokemon as pk
 import trainer as tr
 
 import process_move as pm
@@ -96,19 +95,6 @@ class Battle:
         self.t2_fainted = False
         self.t1.current_poke.turn_damage = False
         self.t2.current_poke.turn_damage = False
-
-        # if (
-        #     t1_move[gs.ACTION_TYPE] == gd.MOVE
-        #     and not t1_mv_check_bypass
-        #     and not self.t1.current_poke.is_move(t1_move[gs.ACTION_VALUE])
-        # ):
-        #     raise Exception("Trainer 1 attempted to use move not in Pokemon's moveset")
-        # if (
-        #     t2_move[gs.ACTION_TYPE] == gd.MOVE
-        #     and not t2_mv_check_bypass
-        #     and not self.t2.current_poke.is_move(t2_move[gs.ACTION_VALUE])
-        # ):
-        #     raise Exception("Trainer 2 attempted to use move not in Pokemon's moveset")
 
         if not t1_move_data and t1_move[gs.ACTION_TYPE] == gd.MOVE:
             t1_move_data = self.t1.current_poke.get_move_data(t1_move[gs.ACTION_VALUE])
@@ -214,12 +200,6 @@ class Battle:
         if move_data.cur_pp <= 0:
             raise Exception("Trainer attempted to use move that has no pp left")
         move_data.cur_pp -= 1
-        # if (
-        #     move_data.cur_pp == 0
-        #     and attacker.copied
-        #     and move_data.name == attacker.copied.name
-        # ):
-        #     attacker.copied = None
         return True
     
     def _pre_process_move(self, trainer: tr.Trainer, t_move: list) -> list:
@@ -250,8 +230,6 @@ class Battle:
                     break
         if not selector.current_poke.is_alive or selector.current_poke is old_poke:
             return True
-        # if old_poke.is_alive:
-        #     old_poke.switch_out()
         self.add_text(selector.name + " sent out " + selector.current_poke.nickname + "!")
         return False
     

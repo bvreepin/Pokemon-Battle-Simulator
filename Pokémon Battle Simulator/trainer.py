@@ -30,10 +30,6 @@ class Trainer:
             [isinstance(p, pk.Pokemon) for p in poke_list]
         ):
             raise Exception("Attempted to create Trainer with invalid party")
-        if len(poke_list) < gs.POKE_NUM_MIN or len(poke_list) > gs.POKE_NUM_MAX:
-            raise Exception(
-                "Attempted to create Trainer with invalid number of Pokemon"
-            )
         if any([poke.trainer for poke in poke_list]):
             raise Exception(
                 "Attempted to create Trainer with Pokemon in another Trainer's party"

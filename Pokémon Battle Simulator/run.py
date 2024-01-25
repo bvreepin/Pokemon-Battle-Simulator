@@ -6,9 +6,7 @@ import trainer as tr
 
 PokeData.start()
 
-amount_of_pokemon = "2" #input("How many Pokémon do you want to use? (Max 6)\n")
-
-trainer_name = "ash" #input(f"What is your trainer name?\n")
+amount_of_pokemon = input("How many Pokémon do you want to use? (Max 6)\n")
 
 if amount_of_pokemon.isnumeric():
     amount_of_pokemon = int(amount_of_pokemon)
@@ -18,6 +16,11 @@ if amount_of_pokemon.isnumeric():
 else:
     print("Invalid amount of Pokémon, initialized to 6 Pokémon\n")
     amount_of_pokemon = gs.POKE_NUM_MAX
+
+trainer_name = input(f"\nWhat is your trainer name?\n")
+if trainer_name == "":
+    print("Trainer name can't be empty, initialized to \"Ash\"")
+    trainer_name = "Ash"
     
 poke_list = []
 
@@ -25,27 +28,36 @@ for i in range(amount_of_pokemon):
     is_valid = False
     while(not is_valid):
         name = input(f"\nWhat is the name of Pokémon {i+1}?\n")
-        move_list = ["thunderbolt", "thunder"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
+        move_list = input(f"\nWhat are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
         try:
-            poke_list.append(pk.Pokemon(name, move_list))
-            is_valid = True
+            if len(move_list) <= 4:
+                poke_list.append(pk.Pokemon(name, move_list))
+                is_valid = True
+            else:
+                print("Too many moves were given, only 4 moves are allowed")
         except Exception as e:
             print(f'{e}')
 
 trainer1 = tr.Trainer(trainer_name, poke_list)
     
-trainer_name = "paul" #input(f"What is your opponent's trainer name?\n")
+trainer_name = input(f"\nWhat is your opponent's trainer name?\n")
+if trainer_name == "":
+    print("Trainer name can't be empty, initialized to \"Paul\"")
+    trainer_name = "Paul"
 
 poke_list = []
 
 for i in range(amount_of_pokemon):
     is_valid = False
     while(not is_valid):
-        name = "infernape" #input(f"What is the name of opponent Pokémon {i+1}?\n")
-        move_list = ["fire-blast", "flamethrower"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
+        name = input(f"\nWhat is the name of opponent Pokémon {i+1}?\n")
+        move_list = input(f"\nWhat are the moves of {name}? (Max 4) Enter these moves, separated by a comma and space\n").lower().split(", ")
         try:
-            poke_list.append(pk.Pokemon(name, move_list))
-            is_valid = True
+            if len(move_list) <= 4:
+                poke_list.append(pk.Pokemon(name, move_list))
+                is_valid = True
+            else:
+                print("Too many moves were given, only 4 moves are allowed")
         except Exception as e:
             print(f'{e}')
             
@@ -56,6 +68,9 @@ battle.start()
 
 while(not battle.is_finished()):
     print(f"\n{trainer1.name}:")
+    current_poke = trainer1.current_poke
+    current_opponent_poke = trainer2.current_poke
+    print(f"{current_poke.name} HP:{current_poke.cur_hp}/{current_poke.max_hp} VS {current_opponent_poke.name} HP:{current_opponent_poke.cur_hp}/{current_opponent_poke.max_hp}\n")
     valid_action = False
     while valid_action == False:
         action_trainer1 = input("Enter \"S\" if you want to switch, enter anything else if you want to attack\n")
@@ -64,14 +79,13 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
-                current_poke = trainer1.current_poke
                 print(f"\nChoose {current_poke.name}'s attack:")
                 print(f"HP: {current_poke.cur_hp}/{current_poke.max_hp}\n")
                 amount_of_moves = len(trainer1.current_poke.moves)
                 for i in range(amount_of_moves):
                     move = trainer1.current_poke.moves[i]
                     print(f"{i+1}) {move.name} Power:{move.power} PP:{move.cur_pp}\n")
-                move_index = "1" # input("Which move do you want to use?\n")
+                move_index = input("Which move do you want to use?\n")
                 if not move_index.isnumeric() or int(move_index) < 1 or int(move_index) > amount_of_moves:
                     print("invalid move selected")
                 else:
@@ -81,23 +95,25 @@ while(not battle.is_finished()):
         if valid_action == False:
             print("\nThe chosen action is invalid due to not being able to switch to a fainted Pokémon or the chosen move not having any PP left")
                 
-    print(f"{trainer2.name}:")
+    print(f"\n{trainer2.name}:")
+    current_poke = trainer2.current_poke
+    current_opponent_poke = trainer1.current_poke
+    print(f"{current_poke.name} HP:{current_poke.cur_hp}/{current_poke.max_hp} VS {current_opponent_poke.name} HP:{current_opponent_poke.cur_hp}/{current_opponent_poke.max_hp}\n")
     valid_action = False
     while valid_action == False:
-        action_trainer2 = "1" #input("Enter S if you want to switch, enter anything else if you want to attack\n")
+        action_trainer2 = input("Enter \"S\" if you want to switch, enter anything else if you want to attack\n")
         if action_trainer2 == "S":
             action_trainer2 = ['other', 'switch']
         else:
             is_valid = False
             while not is_valid:
-                current_poke = trainer2.current_poke
                 print(f"\nChoose {current_poke.name}'s attack")
                 print(f"HP: {current_poke.cur_hp}/{current_poke.max_hp}\n")
                 amount_of_moves = len(trainer2.current_poke.moves)
                 for i in range(amount_of_moves):
                     move = trainer2.current_poke.moves[i]
                     print(f"{i+1}) {move.name} Power:{move.power} PP:{move.cur_pp}\n")
-                move_index = "1" # input("Which move do you want to use?\n")
+                move_index = input("Which move do you want to use?\n")
                 if not move_index.isnumeric() or int(move_index) < 1 or int(move_index) > amount_of_moves:
                     print("invalid move selected")
                 else:

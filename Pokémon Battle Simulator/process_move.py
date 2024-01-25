@@ -6,9 +6,7 @@ from move import Move
 
 import pokemon as pk
 import battle as bt
-
 import global_settings as gs
-import global_data as gd
 
 
 def process_move(
@@ -22,7 +20,6 @@ def process_move(
         attacker, battle, move_data
     ):
         return
-    # attacker.last_successful_move_next = move_data
     _calculate_damage(attacker, defender, battle, move_data)
     battle._faint_check()
 

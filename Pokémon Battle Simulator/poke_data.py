@@ -113,17 +113,17 @@ class PokeData:
             cls._type_to_id[def_type]
         ]
 
-    @classmethod
-    def get_all_types(cls) -> list:
-        return list(cls._type_to_id.keys())
+    # @classmethod
+    # def get_all_types(cls) -> list:
+    #     return list(cls._type_to_id.keys())
 
-    @classmethod
-    def is_valid_type(cls, type: str) -> bool:
-        return type in cls._type_to_id
+    # @classmethod
+    # def is_valid_type(cls, type: str) -> bool:
+    #     return type in cls._type_to_id
 
-    @classmethod
-    def filter_valid_types(cls, types: list[str]) -> list:
-        return [type for type in types if type in cls._type_to_id]
+    # @classmethod
+    # def filter_valid_types(cls, types: list[str]) -> list:
+    #     return [type for type in types if type in cls._type_to_id]
 
     # @classmethod
     # def get_rand_gender(cls) -> str:
