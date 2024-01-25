@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import global_settings as gs
+import conf.global_settings as gs
 
 
 class Move:
@@ -13,18 +13,11 @@ class Move:
         self.power = move_data[gs.MOVE_POWER]
         self.max_pp = move_data[gs.MOVE_PP]
         self.acc = move_data[gs.MOVE_ACC]
-        self.target = move_data[gs.MOVE_TARGET]
         self.category = move_data[gs.MOVE_CATEGORY]
         self.cur_pp = self.max_pp
-        self.pos = None
-        self.disabled = 0
-        self.encore_blocked = False
 
     def reset(self):
         self.cur_pp = self.max_pp
-        self.pos = None
-        self.disabled = 0
-        self.encore_blocked = False
         self.power = self.md[gs.MOVE_POWER]
         self.max_pp = self.md[gs.MOVE_PP]
         self.acc = self.md[gs.MOVE_ACC]
@@ -33,6 +26,4 @@ class Move:
     def get_tcopy(self) -> Move:
         copy = Move(self.md)
         copy.cur_pp = self.cur_pp
-        copy.pos = self.pos
-        copy.disabled = self.disabled
         return copy

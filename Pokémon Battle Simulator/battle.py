@@ -8,8 +8,8 @@ import trainer as tr
 
 import process_move as pm
 
-import global_settings as gs
-import global_data as gd
+import conf.global_settings as gs
+import conf.global_data as gd
 
 
 class Battle:

@@ -1,7 +1,7 @@
 import csv
 import importlib.resources
 
-import global_settings as gs
+import conf.global_settings as gs
 
 
 class PokeData:

@@ -4,7 +4,7 @@ from poke_data import PokeData
 from move import Move
 
 import battle as bt
-import global_settings as gs
+import conf.global_settings as gs
 
 
 class Pokemon:

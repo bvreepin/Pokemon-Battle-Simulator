@@ -1,5 +1,5 @@
 from poke_data import PokeData
-import global_settings as gs
+import conf.global_settings as gs
 import pokemon as pk
 import battle as bt
 import trainer as tr

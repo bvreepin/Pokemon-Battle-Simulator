@@ -6,7 +6,7 @@ from move import Move
 
 import pokemon as pk
 import battle as bt
-import global_settings as gs
+import conf.global_settings as gs
 
 
 def process_move(
