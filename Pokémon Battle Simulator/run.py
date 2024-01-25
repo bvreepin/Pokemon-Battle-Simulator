@@ -64,7 +64,7 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
-                print(f"Choose {trainer1.current_poke}'s attack")
+                print(f"Choose {trainer1.current_poke.name}'s attack")
                 amount_of_moves = len(trainer1.current_poke.moves)
                 for i in range(amount_of_moves):
                     move = trainer1.current_poke.moves[i]
@@ -88,7 +88,7 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
-                print(f"Choose {trainer2.current_poke}'s attack")
+                print(f"Choose {trainer2.current_poke.name}'s attack")
                 amount_of_moves = len(trainer2.current_poke.moves)
                 for i in range(amount_of_moves):
                     move = trainer2.current_poke.moves[i]
