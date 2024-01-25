@@ -25,7 +25,7 @@ for i in range(amount_of_pokemon):
     is_valid = False
     while(not is_valid):
         name = input(f"What is the name of Pokémon {i+1}?\n")
-        move_list = ["thunderbolt"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma\n").lower().split(", ")
+        move_list = ["thunderbolt"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
         try:
             poke_list.append(pk.Pokemon(name, move_list))
             is_valid = True
@@ -42,7 +42,7 @@ for i in range(amount_of_pokemon):
     is_valid = False
     while(not is_valid):
         name = "infernape" #input(f"What is the name of opponent Pokémon {i+1}?\n")
-        move_list = ["fire-blast"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma\n").lower().split(", ")
+        move_list = ["fire-blast"] #input(f"What are the moves of {name}? Enter these moves, separated by a comma and space\n").lower().split(", ")
         try:
             poke_list.append(pk.Pokemon(name, move_list))
             is_valid = True
@@ -64,9 +64,11 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
+                print(f"Choose {trainer1.current_poke}'s attack")
                 amount_of_moves = len(trainer1.current_poke.moves)
                 for i in range(amount_of_moves):
-                    print(f"{i+1}) {trainer1.current_poke.moves[i].name}\n")
+                    move = trainer1.current_poke.moves[i]
+                    print(f"{i+1}) {move.name} Power:{move.power} PP:{move.cur_pp}\n")
                 move_index = "1" # input("Which move do you want to use?\n")
                 if not move_index.isnumeric() or int(move_index) < 1 or int(move_index) > amount_of_moves:
                     print("invalid move selected")
@@ -86,9 +88,11 @@ while(not battle.is_finished()):
         else:
             is_valid = False
             while not is_valid:
+                print(f"Choose {trainer2.current_poke}'s attack")
                 amount_of_moves = len(trainer2.current_poke.moves)
                 for i in range(amount_of_moves):
-                    print(f"{i+1}) {trainer2.current_poke.moves[i].name}\n")
+                    move = trainer2.current_poke.moves[i]
+                    print(f"{i+1}) {move.name} Power:{move.power} PP:{move.cur_pp}\n")
                 move_index = "1" # input("Which move do you want to use?\n")
                 if not move_index.isnumeric() or int(move_index) < 1 or int(move_index) > amount_of_moves:
                     print("invalid move selected")
